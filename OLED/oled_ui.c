@@ -1,14 +1,10 @@
 #include "oled.h"
 #include "stdio.h"
 
-#define system_file "SmartCup.h" // 不同的系统需要不同的头文件
-#include system_file
-
-// 定义系统名称
-#define SystemName "Smart_cups" // 不同的系统需要不同的名称
 
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
+
 
 /// 定义字体大小
 #define font_size1 font8x6
@@ -40,8 +36,7 @@ void UI_main(void)
     OLED_NewFrame();
     _UI_ShowSystemName();
     // 打印欢迎信息
-    OLED_PrintString(center_x("Welcome", font_size3), line_positions[2], "Welcome", &font_size3, OLED_COLOR_NORMAL);
-    
+
     OLED_ShowFrame();
 		HAL_Delay(1000);
 
@@ -51,23 +46,6 @@ void UI_show_data(void)
     OLED_NewFrame();
     _UI_ShowSystemName();
 
-    // 计算并打印 "temp" 和 "water" 标签
-    OLED_PrintString(center_x_region(2, 1, "temp", font_size3), line_positions[2], "temp", &font_size3, OLED_COLOR_NORMAL);
-    OLED_PrintString(center_x_region(2, 2, "water", font_size3), line_positions[2], "water", &font_size3, OLED_COLOR_NORMAL);
-
-    uint8_t temp = SmartCup_get_temperature();
-    uint16_t water = SmartCup_get_water_level();
-
-    char temp_str[4];  // 增加长度以容纳更大的数值
-    char water_str[7]; // 增加长度以容纳更大的数值
-
-    sprintf(temp_str, "%d", temp);
-    sprintf(water_str, "%d", water);
-
-    // 计算并打印实际的温度和水位值
-    OLED_PrintString(center_x_region(2, 1, temp_str, font_size3), line_positions[3], temp_str, &font_size3, OLED_COLOR_NORMAL);
-    OLED_PrintString(center_x_region(2, 2, water_str, font_size3), line_positions[3], water_str, &font_size3, OLED_COLOR_NORMAL);
-
     OLED_ShowFrame();
 }
 
@@ -75,37 +53,8 @@ void UI_show_data(void)
 void UI_show_status(void)
 {
     OLED_NewFrame();
-    _UI_ShowSystemName();
 
-    // 加热 杯盖
-    // 计算并打印 "" 和 "water" 标签
-    OLED_PrintString(center_x_region(2, 1, "heat", font_size3), line_positions[2], "heat", &font_size3, OLED_COLOR_NORMAL);
-    OLED_PrintString(center_x_region(2, 2, "lid", font_size3), line_positions[2], "lid", &font_size3, OLED_COLOR_NORMAL);
-
-    char temp_str[6];
-    if (SmartCup_get_heater_state() == 1)
-    {
-        strcpy(temp_str, "YES");
-    }
-    else if (SmartCup_get_heater_state() == 0)
-    {
-        strcpy(temp_str, "NO");
-    }
-    // 计算并打印实际的温度和水位值
-    OLED_PrintString(center_x_region(2, 1, temp_str, font_size3), line_positions[3], temp_str, &font_size3, OLED_COLOR_NORMAL);
-    
-
-    if (SmartCup_get_lid_state() == 1)
-    {
-        strcpy(temp_str, "YES");
-    }
-    else if (SmartCup_get_lid_state() == 0)
-    {
-        strcpy(temp_str, "NO");
-    }
-    // 计算并打印实际的温度和水位值
-    OLED_PrintString(center_x_region(2, 2, temp_str, font_size3), line_positions[3], temp_str, &font_size3, OLED_COLOR_NORMAL);
-
+ 
     OLED_ShowFrame();
 }
 
