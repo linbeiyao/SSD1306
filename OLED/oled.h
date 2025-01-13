@@ -7,8 +7,7 @@
 #include <stdbool.h>
 
 
-#define system_file "SmartCup.h"            // 不同的系统需要不同的头文件
-#include system_file
+
 
 
 
